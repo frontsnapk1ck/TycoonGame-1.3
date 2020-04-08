@@ -3,7 +3,8 @@ package tycoongame.zzzzzz;
 import java.util.ArrayList;
 import java.util.List;
 
-import tycoongame.game.managers.Player;
+import tycoongame.game.asests.Player;
+import tycoongame.game.managers.Manager;
 import tycoongame.io.Input;
 import tycoongame.zzzzzz.event.EventListener;
 
@@ -19,7 +20,7 @@ public abstract class GameFramework {
 	/**the conversion from objects to strings */
 	protected DisplayAdapter dispAdpt;
 	/**the manager for the displays in the game */
-	// protected Manager guiManager;
+	protected Manager guiManager;
 	/**the list of objects listening to game events */
 	protected List<EventListener> listeners;
 
@@ -34,7 +35,7 @@ public abstract class GameFramework {
 		input = new Input();
 		menu = new Menu();
 		dispAdpt = new DisplayAdapter(); 
-		// guiManager = new Manager();
+		guiManager = new Manager();
 		
 		player.startGame();
 	}

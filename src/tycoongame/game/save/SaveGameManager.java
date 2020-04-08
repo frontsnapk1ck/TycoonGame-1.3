@@ -57,26 +57,4 @@ public class SaveGameManager {
         return single;
     }
 
-    // public List<Loan> getOwnedLoans() 
-    // {
-    //     LoanFactory factory = new LoanFactory();
-    //     List<Loan> loans= new ArrayList<Loan>();
-
-    //     factory.loadOwned ("res\\assets\\saves\\account\\ownedLoans.txt");
-    //     if (factory.getLoans() != null && factory.getLoans().size() != 0)
-    //         loans.addAll(factory.getLoans());
-    //     return loans;
-	// }
-
-    // public List<Log> getLogs() 
-    // {
-    //     LogFactory factory = new LogFactory();
-    //     List<Log> logs = new ArrayList<Log>();
-
-    //     factory.load("res\\assets\\saves\\account\\account.txt");
-    //     if (factory.getLogs() != null && factory.getLogs().size() != 0)
-    //         logs.addAll(factory.getLogs());
-    //     return logs;
-	// }
-
 }

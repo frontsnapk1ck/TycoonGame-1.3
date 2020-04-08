@@ -255,19 +255,22 @@ public abstract class GrandManager {
 	 * this method calls <code>checkHashArray</code> which will make a new {@link ArrayList} in the {@link HashMap}
 	 * @param classNum the index of the {@link BuildingType} to add the {@link StoreManager} to
 	 */
-	public void addSMan(int classNum) 
+	public void addSMan(int classNum , String name ) 
 	{
 		BuildingType bT = buildingTypes.get(classNum);
-		StoreManager sMan = new StoreManager(bT);
+		StoreManager sMan = new StoreManager(bT , name );
 		checkHashArrray(bT);
 		this.ownedBuildings.get(bT).add(sMan);
 	}
 
 	/**
 	 * 
-	 * @param classNum the undex of the {@link BuildingType} to search for in the {@link HashMap}
-	 * @param index the index of the {@link StoreManager} in the {@link HashMap} of {@link StoreManager}s
-	 * @param building the index of the {@link Building} in the {@link ArrayList} of {@link Building}s stored in each {@link StoreManager}
+	 * @param classNum the undex of the {@link BuildingType} to search for in the
+	 *                 {@link HashMap}
+	 * @param index    the index of the {@link StoreManager} in the {@link HashMap}
+	 *                 of {@link StoreManager}s
+	 * @param building the index of the {@link Building} in the {@link ArrayList} of
+	 *                 {@link Building}s stored in each {@link StoreManager}
 	 * @return
 	 */
 	public Building getBuilding(int classNum, int index, int building) 

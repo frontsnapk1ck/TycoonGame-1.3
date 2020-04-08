@@ -1,4 +1,4 @@
-package tycoongame.game.managers;
+package tycoongame.game.asests;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,6 +6,7 @@ import java.util.List;
 import tycoongame.buildings.Building;
 import tycoongame.buildings.StoreManager;
 import tycoongame.finances.Loan;
+import tycoongame.game.factory.NameFactory;
 import tycoongame.records.Log;
 import tycoongame.zzzzzz.event.EventListener;
 import tycoongame.zzzzzz.event.GameEvent;
@@ -13,10 +14,12 @@ import tycoongame.zzzzzz.event.GameEvent;
 public class Player implements EventListener {
 
     private AccountManager account = new AccountManager();
-    private BuildingManager bManager = new BuildingManager();
+	private BuildingManager bManager = new BuildingManager();
+	private NameFactory nameFactory = new NameFactory (); 
 
     public void startGame() 
     {
+		nameFactory.load("res\\assets\\saves\\buildings\\storeManagers");
         // TODO Auto-generated method stub
 
     }
@@ -192,10 +195,10 @@ public class Player implements EventListener {
 
 	public void addSMan(int classNum) 
 	{
-		bManager.addSMan (classNum);
+		bManager.addSMan ( classNum , nameFactory.getName() );
 	}
 
-	public Building getBuilding(int classNum, int index , int building) 
+	public Building getBuilding(int classNum, int index, int building) 
 	{
 		return bManager.getBuilding(classNum , index , building);
 	}
@@ -216,7 +219,7 @@ public class Player implements EventListener {
 
 	public void sellBuilding(int classNum, int in, int building) 
 	{
-
+		//TODO auto generated
 	}
 
 	public double getBuildingUpgradeCost(int classNum, int in, int building) 

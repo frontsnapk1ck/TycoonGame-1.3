@@ -6,7 +6,7 @@ import java.util.List;
 import tycoongame.buildings.Building;
 import tycoongame.buildings.StoreManager;
 import tycoongame.finances.Loan;
-import tycoongame.game.managers.Player;
+import tycoongame.game.asests.Player;
 import tycoongame.records.Log;
 
 /**

@@ -1,13 +1,14 @@
 package tycoongame.game.factory;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import tycoongame.finances.Loan;
 
 public class LoanFactory {
 
-    private List<Loan> stockLoans;
-    private List<Loan> ownedLoans;
+    private List<Loan> stockLoans = new ArrayList<Loan>();
+    private List<Loan> ownedLoans = new ArrayList<Loan>();
 
     public void loadStock(String filename) 
     {

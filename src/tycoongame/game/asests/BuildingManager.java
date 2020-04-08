@@ -1,4 +1,4 @@
-package tycoongame.game.managers;
+package tycoongame.game.asests;
 
 import java.util.ArrayList;
 import java.util.HashMap;

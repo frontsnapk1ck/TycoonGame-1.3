@@ -22,9 +22,9 @@ public class TycoonGame extends GameFramework {
 
     public static void main(String[] args) 
     {
-        // game = getInstance(game);
-        // game.setupGame();
-        // game.start();
+        game = getInstance(game);
+        game.setupGame();
+        game.start();
     }
 
     private void start() {

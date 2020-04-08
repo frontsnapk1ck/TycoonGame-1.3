@@ -126,12 +126,13 @@ public class BuildingFactory {
 
         BuildingType bT = BuildingType.parseBT(slices[0]);
         String id = slices[0] + "|" + slices[1];
-        double baseUpkeepCost = Double.parseDouble(slices[2]);
-        int upgradeCount = Integer.parseInt(slices[3]);
-        int maxBuildings = Integer.parseInt(slices[4]);
-        double multiplyer = Double.parseDouble(slices[5]);
+        String name = slices[2];
+        double baseUpkeepCost = Double.parseDouble(slices[3]);
+        int upgradeCount = Integer.parseInt(slices[4]);
+        int maxBuildings = Integer.parseInt(slices[5]);
+        double multiplyer = Double.parseDouble(slices[6]);
 
-        StoreManager storeMan = new StoreManager(bT);
+        StoreManager storeMan = new StoreManager(bT , name);
         storeMan.setID( id );
         storeMan.setBaseUpkeepCost( baseUpkeepCost );
         storeMan.setUpgradeCount(upgradeCount);

@@ -34,10 +34,13 @@ public class StoreManager {
 	private BuildingType bT;
 	/**the ID for the {@link StoreManager} */
 	private String id;
+	/**the name of the {@link StoreManager} */
+	private String name;
 	
-	public StoreManager (BuildingType bT)
+	public StoreManager ( BuildingType bT , String name )
 	{
 		this.bT = bT;
+		this.name = name;
 		this.multiplyer = 1;
 		this.maxBuildings = 10;
 		this.baseUpkeepCost= 5;
@@ -257,6 +260,7 @@ public class StoreManager {
 	public String getSaveData ()
 	{
 		String out = 	this.id + "|" + 
+						this.name + "|" + 
 						this.baseUpkeepCost + "|" + 
 						this.upgradeCount + "|" + 
 						this.maxBuildings + "|" +
@@ -284,6 +288,11 @@ public class StoreManager {
 	{
 		this.upgradeCount = upgradeCount;
 		calculateUpkeep();
+	}
+
+	public String getName() 
+	{
+		return this.name;
 	}
 
 }
