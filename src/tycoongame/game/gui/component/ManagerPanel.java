@@ -6,7 +6,7 @@ public class ManagerPanel extends ScreenFramework {
 
     public ManagerPanel ()
     {
-        
+        this.getPanel().setLayout(null);
     }
 
 }   

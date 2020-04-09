@@ -5,8 +5,9 @@ import java.util.List;
 
 import tycoongame.buildings.BuildingType;
 import tycoongame.buildings.StoreManager;
-import tycoongame.game.gui.BusinessScreen;
+import tycoongame.game.controllers.BusinessScreenController;
 import tycoongame.game.gui.Window;
+import tycoongame.game.gui.screeen.BusinessScreen;
 import tycoongame.gui.ScreenFramework;
 
 public class Manager {
@@ -23,10 +24,19 @@ public class Manager {
         sMans.add (new StoreManager(bT, "Ligma"));
         sMans.add (new StoreManager(bT, "Sugdez"));
         sMans.add (new StoreManager(bT, "Joe"));
+        sMans.add (new StoreManager(bT, "Ligma"));
+        sMans.add (new StoreManager(bT, "Sugdez"));
+        sMans.add (new StoreManager(bT, "Joe"));
+        sMans.add (new StoreManager(bT, "Ligma"));
+        sMans.add (new StoreManager(bT, "Sugdez"));
+        sMans.add (new StoreManager(bT, "Joe"));
+
         //TODO temp code
         
-
-        this.currentScreen = new BusinessScreen( bT , sMans );
+        BusinessScreenController bSC = new BusinessScreenController ( bT );
+        bSC.addBusinessScreen( new BusinessScreen( bT.toString() ) );
+        bSC.setsMans(sMans);
+        this.currentScreen = bSC.getBScreen();
     }
 
     public void display() 
