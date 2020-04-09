@@ -12,6 +12,7 @@ import javax.swing.JButton;
 import tycoongame.game.gui.component.TitleBanner;
 import tycoongame.game.gui.event.ManagerEvent;
 import tycoongame.game.gui.event.ManagerListener;
+import tycoongame.buildings.Building;
 import tycoongame.game.controllers.BusinessScreenController;
 import tycoongame.game.gui.component.InfoPanel;
 import tycoongame.game.gui.component.ManagerPanel;
@@ -176,6 +177,12 @@ public class ManagerScreen extends ScreenFramework {
     public void removeListener(BusinessScreenController listener ) 
     {
         this.listeners.remove( listener );
+	}
+
+    public void setBuildings(List<Building> buildings) 
+    {
+        for (Building building : buildings) 
+            loadBuilding(building.getName());
 	}
 
 }

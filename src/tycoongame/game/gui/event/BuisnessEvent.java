@@ -5,9 +5,11 @@ public class BuisnessEvent {
 	public static final int MANAGER_SELECTED = 3;
     private String managerName;
     private int action;
+    private String id;
 
-    public BuisnessEvent(String name, int action) 
+    public BuisnessEvent(String name , String id , int action) 
     {
+        this.id = id;
         this.action = action;
         this.managerName = name;
     }
@@ -26,4 +28,10 @@ public class BuisnessEvent {
         return managerName;
     }
 
+    /**
+     * @return the id
+     */
+    public String getId() {
+        return id;
+    }
 }

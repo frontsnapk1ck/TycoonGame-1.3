@@ -93,16 +93,18 @@ public class BuildingFactory {
     {
         String[] slices = string.split("\\|");
 
-        int currentLevel = Integer.parseInt(slices[4]);
-        int maxLevel = Integer.parseInt(slices[5]);  
+        int currentLevel = Integer.parseInt(slices[5]);
+        int maxLevel = Integer.parseInt(slices[6]);  
         
         BuildingType bT = BuildingType.parseBT( slices[0] );
-        double cost = Double.parseDouble( slices[2] );
-        Level level = parseLevel ( slices[3] , currentLevel , maxLevel );
+        double cost = Double.parseDouble( slices[3] );
+        Level level = parseLevel ( slices[4] , currentLevel , maxLevel );
         String id = bT + "|" + slices[1];
+        String name = slices[2];
 
         Building b = new Building(bT, cost, level);
         b.setSManID(id);
+        b.setName(name);
         userBuildings.add(b);
     }
 

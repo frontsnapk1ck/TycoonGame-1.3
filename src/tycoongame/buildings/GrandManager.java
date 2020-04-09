@@ -36,10 +36,12 @@ public abstract class GrandManager {
 	 * @param i index of the building in the list of all {@link Building}s to add to 
 	 * 			the list of <i>ownedBuildings</i>
 	 */
-	public void addBuilding (int i)
+	public void addBuilding (int i , String name)
 	{
 		BuildingType bT = this.buildingTypes.get(i);
 		Building toAdd = this.allBuildings.get(i).clone();
+		toAdd.setName(name);
+		
 		checkHashArrray(bT);
 		StoreManager sMan = this.getFirstSMan (bT);
 		sMan.add(toAdd);

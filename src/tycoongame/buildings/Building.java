@@ -24,6 +24,8 @@ public class Building {
 	private BuildingType bT;
 	/**the id of this {@link Building}'s {@link StoreManager} */
 	private String sManID;
+	/**the name for this building */
+	private String name;
 
 	/**
 	 * @param BuildingType - Sets the type of building <br></br>
@@ -123,6 +125,11 @@ public class Building {
 		this.sManID = id;
 	}
 
+	public void setName (String name)
+	{
+		this.name = name;
+	}
+
 	public String getSManID ()
 	{
 		return this.sManID;
@@ -131,8 +138,14 @@ public class Building {
 	public String getSaveData() 
 	{
 		String out = 	this.sManID + "|" +
+						this.name + "|" + 
 						this.cost + "|" +
 						this.level;
 		return out;
+	}
+
+	public String getName() 
+	{
+		return this.name;
 	}
 }

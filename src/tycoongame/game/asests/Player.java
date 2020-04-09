@@ -16,10 +16,12 @@ public class Player implements EventListener {
     private AccountManager account = new AccountManager();
 	private BuildingManager bManager = new BuildingManager();
 	private NameFactory nameFactory = new NameFactory (); 
+	private NameFactory streetFactory = new NameFactory();
 
     public void startGame() 
     {
-		nameFactory.load("res\\assets\\saves\\buildings\\storeManagers");
+		nameFactory.load("res\\assets\\objects\\stockNames.txt");
+		streetFactory.load("res\\assets\\objects\\stockStreetNames.txt");
         // TODO Auto-generated method stub
 
     }
@@ -130,8 +132,9 @@ public class Player implements EventListener {
 	 */
 	public void addBuilding(int buildingNum) 
 	{
+		String name = streetFactory.getName();
 		if (bManager.canAddBuilding(buildingNum))
-			this.bManager.addBuilding(buildingNum);
+			this.bManager.addBuilding( buildingNum , name );
 	}
 
 	/**

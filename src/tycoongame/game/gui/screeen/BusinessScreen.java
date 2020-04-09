@@ -126,9 +126,7 @@ public class BusinessScreen extends ScreenFramework {
         for (int i = 0; i < this.buttons.size(); i++) 
         {
             JButton jButton = this.buttons.get(i);
-            jButton = sizeButton(jButton , this.widthM , this.heightM , i);
-            jButton.createToolTip()
-            this.buttons.set(i, jButton);
+            sizeButton(jButton , this.widthM , this.heightM , i);
     
             this.managerPanel.getPanel().add(this.buttons.get(i));
         }
@@ -138,7 +136,7 @@ public class BusinessScreen extends ScreenFramework {
     // Screen Specifics
     // =======================================
 
-    private JButton sizeButton(JButton b, int maxW, int maxH, int pos) {
+    private void sizeButton(JButton b, int maxW, int maxH, int pos) {
         final int BUTTONS_PER_COL = 5;
         final int BUTTONS_PER_ROW = 3;
 
@@ -161,18 +159,16 @@ public class BusinessScreen extends ScreenFramework {
 
         b.setBounds(x, y, w, h);
 
-        return b;
-
     }
 
-    public void loadManager ( String name )
+    public void loadManager ( String name , String id )
     {
         JButton managerButton = new JButton( name );
-        managerButton = sizeButton( managerButton , widthM , heightM , this.buttons.size() );
+        sizeButton( managerButton , widthM , heightM , this.buttons.size() );
         managerButton.addActionListener( new ActionListener () {
             @Override
             public void actionPerformed(ActionEvent e) {
-                whenManagerButtonClicked(name);
+                whenManagerButtonClicked(name , id);
             }
         });
         managerButton.setBackground( new Color ( 34, 234, 23));
@@ -180,9 +176,9 @@ public class BusinessScreen extends ScreenFramework {
         this.buttons.add(managerButton);
     }
 
-    private void whenManagerButtonClicked ( String name )
+    private void whenManagerButtonClicked ( String name , String id)
     {
-        BuisnessEvent event = new BuisnessEvent( name , ManagerEvent.BUILDING_SELECTED );
+        BuisnessEvent event = new BuisnessEvent( name , id , BuisnessEvent.MANAGER_SELECTED );
         if ( this.listeners != null )
         {
             for (BusinessLister listerner : this.listeners )

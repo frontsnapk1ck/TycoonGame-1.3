@@ -25,4 +25,5 @@ public class ManagerEvent {
     public String getBuildingName() {
         return buildingName;
     }
+
 }
