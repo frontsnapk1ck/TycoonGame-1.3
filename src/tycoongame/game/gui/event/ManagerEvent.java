@@ -1,13 +1,17 @@
 package tycoongame.game.gui.event;
 
+import tycoongame.buildings.Building;
+
 public class ManagerEvent {
 
 	public static final int BUILDING_SELECTED = 3;
     private String buildingName;
     private int action;
+    private Building builfing;
 
-    public ManagerEvent(String name, int action) 
+    public ManagerEvent(String name, Building building, int action) 
     {
+        this.builfing = building;
         this.action = action;
         this.buildingName = name;
     }
@@ -26,4 +30,10 @@ public class ManagerEvent {
         return buildingName;
     }
 
+    /**
+     * @return the builfing
+     */
+    public Building getBuilfing() {
+        return builfing;
+    }
 }

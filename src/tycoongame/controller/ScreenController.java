@@ -30,12 +30,12 @@ public abstract class ScreenController {
         this.observers.remove(o);
     }
 
-    public void fireChangeEvent (String name )
+    public void fireChangeEvent (String name , int action )
     {
         for (ScreenChangeListener screenChangeListener : observers) 
         {
             if (screenChangeListener != null)
-                screenChangeListener.onScreenChange( new ScreenChangeEvent(this , name));    
+                screenChangeListener.onScreenChange( new ScreenChangeEvent(this , name , action));    
         }
     }
 

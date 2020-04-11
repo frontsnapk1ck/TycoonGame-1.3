@@ -2,7 +2,6 @@ package tycoongame.game.controllers;
 
 import java.util.List;
 
-import tycoongame.buildings.Building;
 import tycoongame.buildings.BuildingType;
 import tycoongame.buildings.StoreManager;
 import tycoongame.controller.ScreenController;
@@ -34,6 +33,7 @@ public class BusinessScreenController extends ScreenController implements Busine
 
         this.businessScreen = screen;
         this.businessScreen.setListener(this);
+        this.businessScreen.loadManagers(this.sMans);
 
         this.currentScreen = this.businessScreen;
     }
@@ -51,53 +51,27 @@ public class BusinessScreenController extends ScreenController implements Busine
         this.currentScreen = this.managerScreen;
     }
 
-    // private String configureTitle()
-    // {
-    // String bTName = "" + this.bT;
-    // String out = "";
-    // for (int i = 0; i < bTName.length(); i++ )
-    // {
-    // out += bTName.charAt(i);
-    // out += "";
-    // }
-    // return out;
-    // }
-
-    public void setsMans(List<StoreManager> sMans) {
-        this.sMans = sMans;
-        for (StoreManager storeManager : sMans)
-            businessScreen.loadManager(storeManager.getName(), storeManager.getID());
-    }
-
     @Override
     public void onManagerSelect(BuisnessEvent event) 
     {
         if (event.getAction() == BuisnessEvent.MANAGER_SELECTED) {
-            setManagerScreen(event.getManagerName(), event.getId());
-            fireChangeEvent( event.getManagerName() );
+            setManagerScreen( event.getManager() );
+            fireChangeEvent( event.getManager().getName() , ScreenChangeEvent.SWITCH_TO_MANAGER );
         }
     }
 
-    private void setManagerScreen(String managerName, String id) {
-        for (StoreManager sMan : sMans) {
-            String sManID = sMan.getID();
-
-            if (sMan.getName().equals(managerName) && sManID.equals(id)) {
-                setManagerScreen(sMan);
-            }
-        }
-    }
-
-    private void setManagerScreen(StoreManager sMan) {
-        List<Building> buildigns = sMan.get();
-        managerScreen.setBuildings(buildigns);
+    private void setManagerScreen( StoreManager sMan ) 
+    {
+        managerScreen.setBuildings(sMan);
         this.currentScreen = managerScreen;
     }
 
     @Override
     public void onBuildingSelect(ManagerEvent event) {
-        if (event.getAction() == ManagerEvent.BUILDING_SELECTED) {
-            System.out.println(event.getBuildingName());
+        if (event.getAction() == ManagerEvent.BUILDING_SELECTED) 
+        {
+            //TODO
+            System.out.println("BusinessScreenController.onBuildingSelect()" + event.getBuilfing() );
         }
     }
 
@@ -119,6 +93,22 @@ public class BusinessScreenController extends ScreenController implements Busine
             this.businessScreen.setName(change.getName());
         }
         return this.currentScreen;
+    }
+
+    @Override
+    public void onBackButtonSelect(ScreenChangeEvent event) 
+    {
+        if ( event.getAction() == ScreenChangeEvent.SWITCH_TO_BUSINESS )
+            this.currentScreen = this.businessScreen;
+        
+        fireChangeEvent( event.getName(), event.getAction() );
+    }
+
+    /**
+     * @param sMans the sMans to set
+     */
+    public void setsMans(List<StoreManager> sMans) {
+        this.sMans = sMans;
     }
 
 }

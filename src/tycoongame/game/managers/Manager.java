@@ -50,9 +50,9 @@ public class Manager implements ScreenChangeListener {
         // TODO temp code
 
         BusinessScreenController bSC = new BusinessScreenController(bT);
+        bSC.setsMans(sMans);
         bSC.addManagerScreen(new ManagerScreen("TESTING"));
         bSC.addBusinessScreen(new BusinessScreen(bT.toString()));
-        bSC.setsMans(sMans);
         this.screenController = bSC;
         this.screenController.addObserver(this);
         this.currentScreen = bSC.getScreen( null );

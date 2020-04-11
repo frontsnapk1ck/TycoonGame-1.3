@@ -6,7 +6,7 @@ public class InfoPanel extends ScreenFramework {
 
     public InfoPanel ()
     {
-        
+        // this.getPanel().setLayout(null);
     }
 
 }

@@ -2,7 +2,6 @@ package tycoongame.game.gui.screeen;
 
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -11,13 +10,13 @@ import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JToolTip;
 
+import tycoongame.buildings.StoreManager;
 import tycoongame.game.controllers.BusinessScreenController;
 import tycoongame.game.gui.component.InfoPanel;
 import tycoongame.game.gui.component.ManagerPanel;
 import tycoongame.game.gui.component.TitleBanner;
 import tycoongame.game.gui.event.BuisnessEvent;
 import tycoongame.game.gui.event.BusinessLister;
-import tycoongame.game.gui.event.ManagerEvent;
 import tycoongame.gui.ScreenFramework;
 
 /**
@@ -52,6 +51,7 @@ public class BusinessScreen extends ScreenFramework {
     private int widthM;
     private int heightM;
     private List<BusinessLister> listeners;
+    private List<StoreManager> managers;
 
     public BusinessScreen(String title) {
         // Remove the layout managerScreen
@@ -161,14 +161,13 @@ public class BusinessScreen extends ScreenFramework {
 
     }
 
-    public void loadManager ( String name , String id )
-    {
-        JButton managerButton = new JButton( name );
-        sizeButton( managerButton , widthM , heightM , this.buttons.size() );
-        managerButton.addActionListener( new ActionListener () {
+    public void loadManager ( String name , StoreManager storeManager) {
+        JButton managerButton = new JButton(name);
+        sizeButton(managerButton, widthM, heightM, this.buttons.size());
+        managerButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                whenManagerButtonClicked(name , id);
+                whenManagerButtonClicked(name, storeManager);
             }
         });
         managerButton.setBackground( new Color ( 34, 234, 23));
@@ -176,9 +175,8 @@ public class BusinessScreen extends ScreenFramework {
         this.buttons.add(managerButton);
     }
 
-    private void whenManagerButtonClicked ( String name , String id)
-    {
-        BuisnessEvent event = new BuisnessEvent( name , id , BuisnessEvent.MANAGER_SELECTED );
+    private void whenManagerButtonClicked ( String name , StoreManager storeManager) {
+        BuisnessEvent event = new BuisnessEvent( storeManager, BuisnessEvent.MANAGER_SELECTED );
         if ( this.listeners != null )
         {
             for (BusinessLister listerner : this.listeners )
@@ -199,5 +197,12 @@ public class BusinessScreen extends ScreenFramework {
     public void setName(String name) 
     {
         this.titlePanel.setText(name);
+	}
+
+    public void loadManagers(List<StoreManager> sMans) 
+    {
+        this.managers = sMans;
+        for (StoreManager storeManager : sMans)
+            loadManager(storeManager.getName(), storeManager);
 	}
 }

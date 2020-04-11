@@ -1,17 +1,18 @@
 package tycoongame.game.gui.event;
 
+import tycoongame.buildings.StoreManager;
+
 public class BuisnessEvent {
 
 	public static final int MANAGER_SELECTED = 3;
     private String managerName;
     private int action;
-    private String id;
+    private StoreManager manager;
 
-    public BuisnessEvent(String name , String id , int action) 
+    public BuisnessEvent( StoreManager storeManager , int action) 
     {
-        this.id = id;
+        this.manager = storeManager;
         this.action = action;
-        this.managerName = name;
     }
     
     /**
@@ -22,16 +23,9 @@ public class BuisnessEvent {
     }
 
     /**
-     * @return the managerName
+     * @return the manager
      */
-    public String getManagerName() {
-        return managerName;
-    }
-
-    /**
-     * @return the id
-     */
-    public String getId() {
-        return id;
+    public StoreManager getManager() {
+        return manager;
     }
 }
