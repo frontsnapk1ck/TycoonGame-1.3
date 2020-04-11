@@ -46,8 +46,11 @@ public class ManagerScreen extends ScreenFramework {
     private ManagerPanel managerPanel;
 
     private List<JButton> buttons;
+    private JButton backButton;
     private int widthM;
+    private int widthI;
     private int heightM;
+    private int heightI;
     private List<ManagerListener> listeners;
 
     public ManagerScreen(String title) {
@@ -74,6 +77,8 @@ public class ManagerScreen extends ScreenFramework {
         this.getPanel().add(this.infoPanel.getPanel());
 
         this.buttons = new ArrayList<JButton>();
+        this.listeners = new ArrayList<ManagerListener>();
+        configureBackButton();
     }
 
     // =============================================================
@@ -118,55 +123,101 @@ public class ManagerScreen extends ScreenFramework {
         int infoX = myWidth - infoW;
         int infoY = managerY;
         this.infoPanel.setBounds(infoX, infoY, infoW, infoH);
+        this.widthI = infoW;
+        this.heightI = infoH;
 
+        for (int i = 0; i < this.buttons.size(); i++) 
+        {
+            JButton jButton = this.buttons.get(i);
+            sizeButton(jButton , this.widthM , this.heightM , i);
+    
+            this.managerPanel.getPanel().add(this.buttons.get(i));
+        }  
     }
 
     // =======================================
     // Screen Specifics
     // =======================================
 
-    private JButton sizeButton(JButton b, int maxW, int maxH, int pos) {
-        final int BUTTONS_PER_COL = 3;
-        final int BUTTONS_PER_ROW = 5;
+    private void sizeButton(JButton b, int maxW, int maxH, int pos) {
+        final int BUTTONS_PER_COL = 5;
+        final int BUTTONS_PER_ROW = 3;
 
         int r = (int) (pos / BUTTONS_PER_ROW);
         int c = pos % BUTTONS_PER_ROW;
 
-        int padLeft = (int) RELATIVE_PAD_X * maxW;
-        int padRight = (int) RELATIVE_PAD_X * maxW;
-        int padTop = (int) RELATIVE_PAD_Y * maxH;
-        int padBot = (int) RELATIVE_PAD_Y * maxH;
+        int padLeft = (int) (RELATIVE_PAD_X * maxW * 2);
+        int padRight = (int)(RELATIVE_PAD_X * maxW * 2);
+        int padTop = (int)  (RELATIVE_PAD_Y * maxH * 2);
+        int padBot = (int)  (RELATIVE_PAD_Y * maxH * 2);
 
         int w = (maxW - padLeft - padRight) / BUTTONS_PER_ROW;
         int h = (maxH - padTop - padBot) / BUTTONS_PER_COL;
 
-        int x = (int) RELATIVE_PAD_X * (r + 1) + (w * r);
-        int y = (int) RELATIVE_PAD_Y * (c + 1) + (h * c);
+        int x = (int) (RELATIVE_PAD_X * (r + 1) * maxW);
+        x += (w * r);
+        
+        int y = (int) (RELATIVE_PAD_Y * (c + 1) * maxH); 
+        y += (h * c);
 
         b.setBounds(x, y, w, h);
-        b.setBackground( new Color ( 34 , 234 , 12 ));
-
-        return b;
 
     }
 
-    public void loadBuilding ( String name )
+    private void configureBackButton() 
     {
-        JButton managerButton = new JButton( name );
-        managerButton = sizeButton( managerButton , widthM , 
-                                    heightM , this.buttons.size() );
-        managerButton.addActionListener( new ActionListener () {
+        this.backButton = new JButton("Back");
+        
+        int padLeft = (int) (RELATIVE_PAD_X * widthI * 2);
+        int padRight = (int)(RELATIVE_PAD_X * widthI * 2);
+        int padTop = (int)  (RELATIVE_PAD_Y * heightI * 2);
+        int padBot = (int)  (RELATIVE_PAD_Y * heightI * 2);
+        
+        int w = (widthI - padLeft - padRight);
+        int h = (int) (heightI * .01);
+
+        int x = padLeft;
+        int y = heightI - padBot;
+
+        this.backButton.setBounds(x, y, w, h);
+        this.backButton.addActionListener( new ActionListener () {
+
             @Override
             public void actionPerformed(ActionEvent e) {
-                whenBuildingButtonClicked( name );
+                whenBackButtonClicked ( );
             }
         });
+    }
+
+    public void loadBuilding(String name)
+    {
+        JButton buildingButton = new JButton( name );
+        sizeButton( buildingButton , widthM , heightM , this.buttons.size() );
+        buildingButton.addActionListener( new ActionListener () {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                whenBuildingButtonClicked (name );
+            }
+        });
+        buildingButton.setBackground( new Color ( 34, 234, 23));
+        buildingButton.setVisible(true);
+        this.buttons.add(buildingButton);
+    }
+
+        
+    protected void whenBackButtonClicked() 
+    {
+        // this.//TODO
     }
 
     private void whenBuildingButtonClicked ( String name )
     {
         ManagerEvent event = new ManagerEvent( name , ManagerEvent.BUILDING_SELECTED);
-        
+        if ( this.listeners != null )
+        {
+            for (ManagerListener listener : listeners)
+                listener.onBuildingSelect(event);
+        }
     }
 
     public void setListener ( ManagerListener lister )
@@ -183,6 +234,11 @@ public class ManagerScreen extends ScreenFramework {
     {
         for (Building building : buildings) 
             loadBuilding(building.getName());
-	}
+    }
+    
+    public void setName (String name)
+    {
+        this.titlePanel.setText(name);
+    }
 
 }

@@ -195,4 +195,9 @@ public class BusinessScreen extends ScreenFramework {
     {
         this.listeners.remove( listener );
 	}
+
+    public void setName(String name) 
+    {
+        this.titlePanel.setText(name);
+	}
 }
