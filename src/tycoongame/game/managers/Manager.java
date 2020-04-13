@@ -55,7 +55,7 @@ public class Manager implements ScreenChangeListener {
         bSC.addBusinessScreen(new BusinessScreen(bT.toString()));
         this.screenController = bSC;
         this.screenController.addObserver(this);
-        this.currentScreen = bSC.getScreen( null );
+        this.currentScreen = bSC.getCurrentScreen();
     }
 
     public void display() {
@@ -67,7 +67,9 @@ public class Manager implements ScreenChangeListener {
     public void onScreenChange( ScreenChangeEvent e ) 
     {
         //TODO set the new screen controller
-        this.currentScreen = this.screenController.getScreen(e);
+        this.currentScreen = null;
+        this.screenController.processScreenEvent(e);
+        this.currentScreen = this.screenController.getCurrentScreen();
         this.window.setCurrentScreen(this.currentScreen);
     }
 

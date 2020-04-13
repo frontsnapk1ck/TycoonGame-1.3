@@ -13,7 +13,7 @@ public abstract class ScreenController {
     protected ScreenFramework currentScreen;
     protected List<ScreenChangeListener> observers;
 
-    public abstract ScreenFramework getScreen( ScreenEvent e);
+    public abstract void processScreenEvent ( ScreenEvent e);
 
     public ScreenController ()
     {
@@ -39,4 +39,17 @@ public abstract class ScreenController {
         }
     }
 
+    /**
+     * @param currentScreen the currentScreen to set
+     */
+    public void setCurrentScreen(ScreenFramework currentScreen) {
+        this.currentScreen = currentScreen;
+    }
+
+    /**
+     * @return the currentScreen
+     */
+    public ScreenFramework getCurrentScreen() {
+        return currentScreen;
+    }
 }

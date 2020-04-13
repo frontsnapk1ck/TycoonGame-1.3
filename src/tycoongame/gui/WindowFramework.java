@@ -73,6 +73,10 @@ public abstract class WindowFramework extends JFrame {
 			this.remove( old.getPanel() );
 		this.add( screen.getPanel() );
 
+		//Update window
+		this.revalidate();
+		this.repaint();
+
 		// Return the replaced screen
 		return old;
 	}

@@ -84,18 +84,6 @@ public class BusinessScreenController extends ScreenController implements Busine
     }
 
     @Override
-    public ScreenFramework getScreen(ScreenEvent e) 
-    {
-        if ( e instanceof ScreenChangeEvent )
-        {
-            ScreenChangeEvent change = (ScreenChangeEvent) e;
-            this.managerScreen.setName(change.getName());
-            this.businessScreen.setName(change.getName());
-        }
-        return this.currentScreen;
-    }
-
-    @Override
     public void onBackButtonSelect(ScreenChangeEvent event) 
     {
         if ( event.getAction() == ScreenChangeEvent.SWITCH_TO_BUSINESS )
@@ -109,6 +97,17 @@ public class BusinessScreenController extends ScreenController implements Busine
      */
     public void setsMans(List<StoreManager> sMans) {
         this.sMans = sMans;
+    }
+
+    @Override
+    public void processScreenEvent(ScreenEvent e) 
+    {
+        if ( e instanceof ScreenChangeEvent )
+        {
+            ScreenChangeEvent change = (ScreenChangeEvent) e;
+            this.managerScreen.setName(change.getName());
+            this.businessScreen.setName(change.getName());
+        }
     }
 
 }
