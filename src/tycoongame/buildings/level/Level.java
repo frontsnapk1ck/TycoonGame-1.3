@@ -15,6 +15,8 @@ public abstract class Level {
 	public abstract double getUpgradeCost();
 	public abstract Level clone();
 	public abstract String toString();
+	public abstract String getType();
+
 
 	public int getCurrent()
 	{
@@ -39,6 +41,11 @@ public abstract class Level {
 	public boolean canAddLevel ()
 	{
 		return this.current + 1 <= maxLevel;
+	}
+
+	public String getUpgradeValue()
+	{
+		return "" + this.current + "/" + this.maxLevel;
 	}
 
 }

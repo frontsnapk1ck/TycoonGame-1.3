@@ -5,12 +5,12 @@ import java.util.List;
 import tycoongame.buildings.BuildingType;
 import tycoongame.buildings.StoreManager;
 import tycoongame.controller.ScreenController;
-import tycoongame.controller.event.ScreenEvent;
-import tycoongame.game.gui.event.BuisnessEvent;
-import tycoongame.game.gui.event.BusinessLister;
-import tycoongame.game.gui.event.ManagerEvent;
-import tycoongame.game.gui.event.ManagerListener;
-import tycoongame.game.gui.event.ScreenChangeEvent;
+import tycoongame.game.gui.event.business.BuisnessEvent;
+import tycoongame.game.gui.event.business.BusinessLister;
+import tycoongame.game.gui.event.manager.ManagerEvent;
+import tycoongame.game.gui.event.manager.ManagerListener;
+import tycoongame.game.gui.event.screenchange.ScreenChangeEvent;
+import tycoongame.game.gui.event.type.TypeEvent;
 import tycoongame.game.gui.screeen.BusinessScreen;
 import tycoongame.game.gui.screeen.ManagerScreen;
 import tycoongame.gui.ScreenFramework;
@@ -22,7 +22,10 @@ public class BusinessScreenController extends ScreenController implements Busine
     private BuildingType bT;
     private List<StoreManager> sMans;
 
-    public BusinessScreenController(BuildingType bT) {
+    /**
+     * @param bT the bT to set
+     */
+    public void setbT(BuildingType bT) {
         this.bT = bT;
     }
 
@@ -52,27 +55,20 @@ public class BusinessScreenController extends ScreenController implements Busine
     }
 
     @Override
-    public void onManagerSelect(BuisnessEvent event) 
-    {
-        if (event.getAction() == BuisnessEvent.MANAGER_SELECTED) {
-            setManagerScreen( event.getManager() );
-            fireChangeEvent( event.getManager().getName() , ScreenChangeEvent.SWITCH_TO_MANAGER );
-        }
+    public void onManagerSelect(BuisnessEvent event) {
+        setManagerScreen(event.getManager());
+        fireChangeEvent(event.getManager().getName() , event);
     }
 
-    private void setManagerScreen( StoreManager sMan ) 
-    {
+    private void setManagerScreen(StoreManager sMan) {
         managerScreen.setBuildings(sMan);
         this.currentScreen = managerScreen;
     }
 
     @Override
-    public void onBuildingSelect(ManagerEvent event) {
-        if (event.getAction() == ManagerEvent.BUILDING_SELECTED) 
-        {
-            //TODO
-            System.out.println("BusinessScreenController.onBuildingSelect()" + event.getBuilfing() );
-        }
+    public void onBuildingSelect(ManagerEvent event) 
+    {
+            System.out.println("BusinessScreenController.onBuildingSelect()" + event.getBuilfing());
     }
 
     public ScreenFramework getBScreen() {
@@ -86,10 +82,8 @@ public class BusinessScreenController extends ScreenController implements Busine
     @Override
     public void onBackButtonSelect(ScreenChangeEvent event) 
     {
-        if ( event.getAction() == ScreenChangeEvent.SWITCH_TO_BUSINESS )
-            this.currentScreen = this.businessScreen;
-        
-        fireChangeEvent( event.getName(), event.getAction() );
+        this.currentScreen = this.businessScreen;
+        fireChangeEvent(event.getName() , event);
     }
 
     /**
@@ -97,17 +91,6 @@ public class BusinessScreenController extends ScreenController implements Busine
      */
     public void setsMans(List<StoreManager> sMans) {
         this.sMans = sMans;
-    }
-
-    @Override
-    public void processScreenEvent(ScreenEvent e) 
-    {
-        if ( e instanceof ScreenChangeEvent )
-        {
-            ScreenChangeEvent change = (ScreenChangeEvent) e;
-            this.managerScreen.setName(change.getName());
-            this.businessScreen.setName(change.getName());
-        }
     }
 
 }

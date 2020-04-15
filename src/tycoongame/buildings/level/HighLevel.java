@@ -37,4 +37,10 @@ public class HighLevel extends Level{
         return "High" + "|" +  getCurrent() + "|" + getMax(); 
     }
 
+    @Override
+    public String getType() 
+    {
+        return "High";
+    }
+
 }

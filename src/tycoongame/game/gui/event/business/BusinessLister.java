@@ -1,4 +1,4 @@
-package tycoongame.game.gui.event;
+package tycoongame.game.gui.event.business;
 
 public interface BusinessLister {
 

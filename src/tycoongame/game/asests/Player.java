@@ -28,7 +28,8 @@ public class Player implements EventListener {
 
     public void onDayChange(GameEvent event) 
     {
-        // TODO Auto-generated method stub
+		// if ( event.getAction() == GameEvent.NEW_DAY )
+			//TODO
 
     }
 

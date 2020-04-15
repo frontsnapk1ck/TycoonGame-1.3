@@ -10,9 +10,9 @@ import java.util.List;
 import javax.swing.JButton;
 
 import tycoongame.game.gui.component.TitleBanner;
-import tycoongame.game.gui.event.ManagerEvent;
-import tycoongame.game.gui.event.ManagerListener;
-import tycoongame.game.gui.event.ScreenChangeEvent;
+import tycoongame.game.gui.event.manager.ManagerEvent;
+import tycoongame.game.gui.event.manager.ManagerListener;
+import tycoongame.game.gui.event.screenchange.ScreenChangeEvent;
 import tycoongame.buildings.Building;
 import tycoongame.buildings.StoreManager;
 import tycoongame.game.controllers.BusinessScreenController;
@@ -212,7 +212,7 @@ public class ManagerScreen extends ScreenFramework {
         
     protected void whenBackButtonClicked() 
     {
-        ScreenChangeEvent event = new ScreenChangeEvent(this, this.sMan.getBT().toString() , ScreenChangeEvent.SWITCH_TO_BUSINESS );
+        ScreenChangeEvent event = new ScreenChangeEvent(this, this.sMan.getBT().toString() );
         if ( this.listeners != null )
         {
             for (ManagerListener listener : listeners)
@@ -222,7 +222,7 @@ public class ManagerScreen extends ScreenFramework {
 
     private void whenBuildingButtonClicked ( String name, Building building)
     {
-        ManagerEvent event = new ManagerEvent( name , building , ManagerEvent.BUILDING_SELECTED);
+        ManagerEvent event = new ManagerEvent( name , building );
         if ( this.listeners != null )
         {
             for (ManagerListener listener : listeners)
@@ -235,7 +235,7 @@ public class ManagerScreen extends ScreenFramework {
         this.listeners.add( lister );
     }
 
-    public void removeListener(BusinessScreenController listener ) 
+    public void removeListener( ManagerListener listener ) 
     {
         this.listeners.remove( listener );
 	}

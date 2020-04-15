@@ -40,4 +40,10 @@ public class LowLevel extends Level {
         return "Low" + "|" + getCurrent() + "|" + getMax(); 
     }
 
+    @Override
+    public String getType() 
+    {
+        return "Low";
+    }
+
 }

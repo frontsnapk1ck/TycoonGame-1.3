@@ -2,22 +2,26 @@ package tycoongame.zzzzzz.event;
 
 public class GameEvent {
 
-    private Object source;
-    private double increace;
-    private int day;
+    public static final int NEW_DAY = 12;
+    public static final int SELL_BUILDING = 2;
+    // public static final int 
+    // public static final int 
+    // public static final int 
 
-    public GameEvent(Object source , double increace , int day)
+    private Object source;
+    private int action;
+
+    public GameEvent(Object source , int action)
     {
         this.source = source;
-        this.increace = increace;
-        this.day = day;
+        this.action = action;
     }
 
     /**
-     * @return the change
+     * @return the action
      */
-    public double getChange() {
-        return increace;
+    public int getAction() {
+        return action;
     }
 
     /**
@@ -26,12 +30,4 @@ public class GameEvent {
     public Object getSource() {
         return source;
     }
-
-    /**
-     * @return the day
-     */
-    public int getDay() {
-        return day;
-    }
-
 }

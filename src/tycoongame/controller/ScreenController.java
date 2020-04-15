@@ -3,17 +3,14 @@ package tycoongame.controller;
 import java.util.ArrayList;
 import java.util.List;
 
-import tycoongame.controller.event.ScreenEvent;
-import tycoongame.game.gui.event.ScreenChangeEvent;
-import tycoongame.game.gui.event.ScreenChangeListener;
+import tycoongame.game.gui.event.screenchange.ScreenChangeEvent;
+import tycoongame.game.gui.event.screenchange.ScreenChangeListener;
 import tycoongame.gui.ScreenFramework;
 
 public abstract class ScreenController {
 
     protected ScreenFramework currentScreen;
     protected List<ScreenChangeListener> observers;
-
-    public abstract void processScreenEvent ( ScreenEvent e);
 
     public ScreenController ()
     {
@@ -30,12 +27,12 @@ public abstract class ScreenController {
         this.observers.remove(o);
     }
 
-    public void fireChangeEvent (String name , int action )
+    public void fireChangeEvent (String name , Object sorceEvent)
     {
         for (ScreenChangeListener screenChangeListener : observers) 
         {
             if (screenChangeListener != null)
-                screenChangeListener.onScreenChange( new ScreenChangeEvent(this , name , action));    
+                screenChangeListener.onScreenChange( new ScreenChangeEvent( sorceEvent , name ));    
         }
     }
 

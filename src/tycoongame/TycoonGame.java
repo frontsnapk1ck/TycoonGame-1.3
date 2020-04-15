@@ -15,8 +15,8 @@ import tycoongame.zzzzzz.event.GameEvent;
 public class TycoonGame extends GameFramework {
 
     private static TycoonGame game;
-    private static String message;
-    private static int day;
+    private String message;
+    private int day;
 
     private List<EventListener> listeners;
 
@@ -338,7 +338,7 @@ public class TycoonGame extends GameFramework {
 
     private void nextDay() 
     {
-        GameEvent event = new GameEvent(this, this.player.getIncrease(), day);
+        GameEvent event = new GameEvent(this , GameEvent.NEW_DAY );
         for (EventListener listener : this.listeners)
             listener.onDayChange(event);
     }
@@ -361,7 +361,7 @@ public class TycoonGame extends GameFramework {
 
 	private void newDayEvent ()
 	{
-		GameEvent event = new GameEvent( this , player.getIncrease() , day ) {	};
+		GameEvent event = new GameEvent (this , GameEvent.NEW_DAY );
 		for (EventListener eventListener : listeners)
 			eventListener.onDayChange(event);
 	}

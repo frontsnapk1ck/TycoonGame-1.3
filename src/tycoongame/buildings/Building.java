@@ -148,4 +148,14 @@ public class Building {
 	{
 		return this.name;
 	}
+
+	public String getLevelType ()
+	{
+		return this.level.getType();
+	}
+
+	public String getLevelUpgradeValue() 
+	{
+		return this.level.getUpgradeValue();
+	}
 }

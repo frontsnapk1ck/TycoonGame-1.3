@@ -8,15 +8,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JButton;
-import javax.swing.JToolTip;
 
 import tycoongame.buildings.StoreManager;
 import tycoongame.game.controllers.BusinessScreenController;
 import tycoongame.game.gui.component.InfoPanel;
 import tycoongame.game.gui.component.ManagerPanel;
 import tycoongame.game.gui.component.TitleBanner;
-import tycoongame.game.gui.event.BuisnessEvent;
-import tycoongame.game.gui.event.BusinessLister;
+import tycoongame.game.gui.event.business.BuisnessEvent;
+import tycoongame.game.gui.event.business.BusinessLister;
 import tycoongame.gui.ScreenFramework;
 
 /**
@@ -176,7 +175,7 @@ public class BusinessScreen extends ScreenFramework {
     }
 
     private void whenManagerButtonClicked ( String name , StoreManager storeManager) {
-        BuisnessEvent event = new BuisnessEvent( storeManager, BuisnessEvent.MANAGER_SELECTED );
+        BuisnessEvent event = new BuisnessEvent( storeManager );
         if ( this.listeners != null )
         {
             for (BusinessLister listerner : this.listeners )
@@ -202,6 +201,8 @@ public class BusinessScreen extends ScreenFramework {
     public void loadManagers(List<StoreManager> sMans) 
     {
         this.managers = sMans;
+        if (this.managers == null)
+            return;
         for (StoreManager storeManager : sMans)
             loadManager(storeManager.getName(), storeManager);
 	}

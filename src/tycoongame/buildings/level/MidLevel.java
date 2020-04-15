@@ -36,4 +36,10 @@ public class MidLevel extends Level {
         return "Mid" + "|" + getCurrent() + "|" + getMax(); 
     }
 
+    @Override
+    public String getType() 
+    {
+        return "Mid";
+    }
+
 }

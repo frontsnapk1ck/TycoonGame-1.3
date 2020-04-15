@@ -76,8 +76,6 @@ public class BuildingManager extends GrandManager {
         List<Building> mathcingBuildings = new ArrayList<Building>();
         for (Building b : buildings)
         {
-            System.err.println(b.getSManID());
-            System.err.println(sMan.getID());
             if (b.getSManID().equals(sMan.getID()))
             {
                 mathcingBuildings.add(b);
