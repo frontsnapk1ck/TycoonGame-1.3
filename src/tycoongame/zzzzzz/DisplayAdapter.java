@@ -88,7 +88,7 @@ public class DisplayAdapter {
 	{
 		ArrayList<String> list = new ArrayList<String>();
 		StoreManager sMan = player.getSMan( classNum , index );
-		for (int i = 1; i <= sMan.size(); i++)
+		for (int i = 1; i <= sMan.getSize(); i++)
 			list.add(i + "\t" + sMan.get(i-1)); 
 		return list;
 	}

@@ -8,13 +8,14 @@ import tycoongame.game.factory.LoanFactory;
 import tycoongame.game.factory.LogFactory;
 import tycoongame.game.save.SaveGameManager;
 import tycoongame.records.Log;
+import tycoongame.zzzzzz.event.transaction.TransactionListner;
+import tycoongame.zzzzzz.event.transaction.TrasnactoinEvent;
 
-public class AccountManager extends Account {
+public class AccountManager extends Account implements TransactionListner {
 
     private LogManager logManager;
 
-    public AccountManager ()
-    {
+    public AccountManager() {
         LogFactory logFactory = new LogFactory();
         LoanFactory loanFactory = new LoanFactory();
 
@@ -31,12 +32,11 @@ public class AccountManager extends Account {
     }
 
     @Override
-    public void save() 
-    {
+    public void save() {
         logManager.save();
-		SaveGameManager save = new SaveGameManager();
-		save.save(getLoanSaveData(), "res\\assets\\saves\\account\\ownedLoans.txt");
-	}
+        SaveGameManager save = new SaveGameManager();
+        save.save(getLoanSaveData(), "res\\assets\\saves\\account\\ownedLoans.txt");
+    }
 
     @Override
     public void resetSave() {
@@ -46,34 +46,35 @@ public class AccountManager extends Account {
     }
 
     @Override
-    protected void addLog(double newBal, double bal, String message) 
-    {
+    protected void addLog(double newBal, double bal, String message) {
         logManager.addLog(newBal, bal, message);
     }
 
-    public List<Log> getLogs() 
-    {
-		return logManager.getLogs();
-	}
+    public List<Log> getLogs() {
+        return logManager.getLogs();
+    }
 
-    public int getNumLoans() 
-    {
-		return this.loans.size();
-	}
+    public int getNumLoans() {
+        return this.loans.size();
+    }
 
-    public List<Loan> getStockLoans() 
-    {
-		return stockLoans;
-	}
+    public List<Loan> getStockLoans() {
+        return stockLoans;
+    }
 
-    public int getLastDay() 
-    {
-		return logManager.getLastDay();
-	}
+    public int getLastDay() {
+        return logManager.getLastDay();
+    }
 
-    public void takeLoan(int in) 
-    {
+    public void takeLoan(int in) {
         this.loans.add(this.stockLoans.get(in).clone());
-	}
+    }
+
+    @Override
+    public void onTransaction(TrasnactoinEvent e) 
+    {
+        // TODO Auto-generated method stub
+
+    }
 
 }

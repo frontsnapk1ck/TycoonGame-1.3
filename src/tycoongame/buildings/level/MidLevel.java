@@ -42,4 +42,10 @@ public class MidLevel extends Level {
         return "Mid";
     }
 
+    @Override
+    public double getSellValue() {
+        // TODO Auto-generated method stub
+        return 0;
+    }
+
 }

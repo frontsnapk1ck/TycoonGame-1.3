@@ -43,4 +43,10 @@ public class HighLevel extends Level{
         return "High";
     }
 
+    @Override
+    public double getSellValue() {
+        // TODO Auto-generated method stub
+        return 0;
+    }
+
 }

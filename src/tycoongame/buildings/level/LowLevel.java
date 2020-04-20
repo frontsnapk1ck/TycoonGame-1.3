@@ -46,4 +46,10 @@ public class LowLevel extends Level {
         return "Low";
     }
 
+    @Override
+    public double getSellValue() {
+        // TODO Auto-generated method stub
+        return 0;
+    }
+
 }

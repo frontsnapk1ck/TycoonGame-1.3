@@ -60,7 +60,7 @@ public abstract class GrandManager {
 		for (int i = 0; i < ownedBuildings.get(bT).size(); i++)
 		{
 			StoreManager sMan = ownedBuildings.get(bT).get(i);
-			if ( !sMan.maxed() )
+			if ( !sMan.isMaxed() )
 					return sMan;
 		}
 		return null;
@@ -74,7 +74,7 @@ public abstract class GrandManager {
 	 */
 	public StoreManager get(BuildingType bT , int i) 
 	{
-		if (i < getFirstSMan(bT).size())
+		if (i < getFirstSMan(bT).getSize())
 			return this.ownedBuildings.get(bT).get(i);
 		return null;
 	}

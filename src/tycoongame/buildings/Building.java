@@ -91,7 +91,7 @@ public class Building {
 	
 	@Override public String toString ()
 	{
-		return "" + this.bT + " w/ Upgrade level " + this.level;
+		return "" + this.bT + " at " + this.name + " w/ Upgrade level " + this.level;
 	}
 
 	/**
@@ -157,5 +157,10 @@ public class Building {
 	public String getLevelUpgradeValue() 
 	{
 		return this.level.getUpgradeValue();
+	}
+
+	public double getSellValue() 
+	{
+		return this.level.getSellValue();
 	}
 }

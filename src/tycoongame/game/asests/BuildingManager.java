@@ -10,6 +10,8 @@ import tycoongame.buildings.GrandManager;
 import tycoongame.buildings.StoreManager;
 import tycoongame.game.factory.BuildingFactory;
 import tycoongame.game.save.SaveGameManager;
+import tycoongame.zzzzzz.event.transaction.TransactionListner;
+import tycoongame.zzzzzz.event.transaction.TrasnactoinEvent;
 
 public class BuildingManager extends GrandManager {
 
@@ -110,5 +112,20 @@ public class BuildingManager extends GrandManager {
         reset.reset("res\\assets\\saves\\buildings\\storeManagers");
         reset.reset("res\\assets\\saves\\buildings\\ownedBuildings");
     }
+
+    public void addTListeners(List<TransactionListner> tListners) 
+    {
+        int size = tListners.size();
+        TransactionListner[] tLArr = new TransactionListner[size()];
+        for (int i = 0; i < size; i++)
+            tLArr[i] = tListners.get(i);
+
+        for (BuildingType bType : this.buildingTypes) 
+        {
+            List<StoreManager> sMans = this.ownedBuildings.get(bType);
+            for (StoreManager sMan : sMans)
+                sMan.add(tLArr);
+        }
+	}
 
 }

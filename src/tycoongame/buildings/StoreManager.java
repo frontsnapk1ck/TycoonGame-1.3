@@ -3,6 +3,9 @@ package tycoongame.buildings;
 import java.util.ArrayList;
 import java.util.List;
 
+import tycoongame.zzzzzz.event.transaction.TransactionListner;
+import tycoongame.zzzzzz.event.transaction.TrasnactoinEvent;
+
 /**
  * a store manager handles a set amount of stores at a time. the defalut is 10, but that can be upgraded down the line
  * <br></br>
@@ -36,6 +39,8 @@ public class StoreManager {
 	private String id;
 	/**the name of the {@link StoreManager} */
 	private String name;
+	/**list of all the {@link TransactionListner}s in this instance of {@link StoreManager} */
+	private List<TransactionListner> tListners;
 	
 	public StoreManager ( BuildingType bT , String name )
 	{
@@ -58,16 +63,6 @@ public class StoreManager {
 		this.id = "" + this.bT + "|" + id;
 	}
 
-	public void setID(String id)
-	{
-		this.id = id;
-	}
-
-	public String getID()
-	{
-		return this.id;
-	}
-
 	public void add(Building b)
 	{
 		b.setSManID(this.id);
@@ -83,6 +78,14 @@ public class StoreManager {
 				b.setSManID(this.id);
 				this.buildings.add(b);
 			}
+		}
+	}
+
+	public void add(TransactionListner[] tListners) 
+	{
+		for (TransactionListner transactionListner : tListners) 
+		{
+			this.tListners.add(transactionListner);
 		}
 	}
 
@@ -133,7 +136,124 @@ public class StoreManager {
 		return cost * 10;
 	}
 
+	//====================================================	
+	//				Display
+	//====================================================
+
+	@Override public String toString() 
+	{
+		String out = "Store Manager";
+		out += "\tmultiplyer: " + this.multiplyer;
+		out += "\tBuildings: " + this.getSize() + "/" + this.maxBuildings;
+		out += "\tUpkeep Cost: " + this.getUpkeepCost();
+		out += "\tNumber of Upgrades: " + this.upgradeCount;
+		out += "\tNext Upgrade Cost: $" + this.getUpkeepCost(1);
+		return out;
+	}
+
+	public String stats() 
+	{
+		String out = "Store Manager";
+		out += "\tmultiplyer: " + this.multiplyer;
+		out += "\tBuildings: " + this.getSize() + "/" + this.maxBuildings;
+		out += "\tUpkeep Cost: " + this.getUpkeepCost();
+		return out;
+	}
+
+	public String getSaveData ()
+	{
+		String out = 	this.id + "|" + 
+						this.name + "|" + 
+						this.baseUpkeepCost + "|" + 
+						this.upgradeCount + "|" + 
+						this.maxBuildings + "|" +
+						this.multiplyer;
+		return out;
+
+	}
+
+	public String getName() 
+	{
+		return this.name;
+	}
+
+	public void sell(Building b) 
+	{
+		double value = b.getSellValue ();
+
+		TrasnactoinEvent e = new TrasnactoinEvent(value, "Sold " + b.toString() );
+		for (TransactionListner t : this.tListners)
+			t.onTransaction(e);
+
+			this.buildings.remove( b );
+	}
+
+	// ====================================
+	//			Listeners
+	// ====================================
+
+	public void addListner( TransactionListner tListner )
+	{
+		this.tListners.add(tListner);
+	}
+
+	public void removeListner( TransactionListner tListner ) 
+	{
+		this.tListners.remove( tListner );	
+	}
+
+	// ====================================
+	//			Setters
+	// ====================================
+
+	public void setBaseUpkeepCost(double baseUpkeepCost) 
+	{
+		this.baseUpkeepCost = baseUpkeepCost;		
+	}
+
+	public void setMaxBuildings(int maxBuildings) 
+	{
+		this.maxBuildings = maxBuildings;
+	}
+
+	public void setMultiplier(double multiplyer) 
+	{
+		this.multiplyer= multiplyer;
+	}
+
+	public void setUpgradeCount(int upgradeCount) 
+	{
+		this.upgradeCount = upgradeCount;
+		calculateUpkeep();
+	}
+
+	public void setID(String id)
+	{
+		this.id = id;
+	}
+
+	// ====================================
+	//			getters
+	// ====================================
+
 	/**
+	 * 
+	 * @return the increase the {@link Building}s in this instance of {@link StoreManager} 
+	 * 	has to include the base cost of each {@link Building} and the level increase of 
+	 * 	each {@link Building} all multipled by this instance of {@link StoreManager}'s 
+	 * 	multiplyer 
+	 */
+	public double getIncrease() 
+	{
+		double increase = 0;
+		for (int i = 0; i < this.getSize(); i++)
+		{
+			increase += this.buildings.get(i).getIncrease();
+		}
+		return increase;
+	}
+
+		/**
 	 * @return the multiplyer upon the {@link Building}s in this instance of {@link StoreManager}
 	 */
 	public double getMultiplyer() 
@@ -201,7 +321,7 @@ public class StoreManager {
 	/**
 	 * @return if this {@link StoreManager} has the max number of buildigns is can handle
 	 */
-	public boolean maxed() 
+	public boolean isMaxed() 
 	{
 		return this.buildings.size() == this.maxBuildings;
 	}
@@ -211,88 +331,14 @@ public class StoreManager {
 	 * @return the number of {@link Building}s the {@link ArrayList} of {@link Building}s this instance of 
 	 * 	{@link StoreManager} has
 	 */
-	public int size() 
+	public int getSize() 
 	{
-		System.err.println(buildings.size());
 		return this.buildings.size();
 	}
-	/**
-	 * 
-	 * @return the increase the {@link Building}s in this instance of {@link StoreManager} 
-	 * 	has to include the base cost of each {@link Building} and the level increase of 
-	 * 	each {@link Building} all multipled by this instance of {@link StoreManager}'s 
-	 * 	multiplyer 
-	 */
-	public double getIncrease() 
+
+	public String getID()
 	{
-		double increase = 0;
-		for (int i = 0; i < this.size(); i++)
-		{
-			increase += this.buildings.get(i).getIncrease();
-		}
-		return increase;
-	}
-
-	//====================================================	
-	//				Display
-	//====================================================
-
-	@Override public String toString() 
-	{
-		String out = "Store Manager";
-		out += "\tmultiplyer: " + this.multiplyer;
-		out += "\tBuildings: " + this.size() + "/" + this.maxBuildings;
-		out += "\tUpkeep Cost: " + this.getUpkeepCost();
-		out += "\tNumber of Upgrades: " + this.upgradeCount;
-		out += "\tNext Upgrade Cost: $" + this.getUpkeepCost(1);
-		return out;
-	}
-
-	public String stats() 
-	{
-		String out = "Store Manager";
-		out += "\tmultiplyer: " + this.multiplyer;
-		out += "\tBuildings: " + this.size() + "/" + this.maxBuildings;
-		out += "\tUpkeep Cost: " + this.getUpkeepCost();
-		return out;
-	}
-
-	public String getSaveData ()
-	{
-		String out = 	this.id + "|" + 
-						this.name + "|" + 
-						this.baseUpkeepCost + "|" + 
-						this.upgradeCount + "|" + 
-						this.maxBuildings + "|" +
-						this.multiplyer;
-		return out;
-
-	}
-
-	public void setBaseUpkeepCost(double baseUpkeepCost) 
-	{
-		this.baseUpkeepCost = baseUpkeepCost;		
-	}
-
-	public void setMaxBuildings(int maxBuildings) 
-	{
-		this.maxBuildings = maxBuildings;
-	}
-
-	public void setMultiplier(double multiplyer) 
-	{
-		this.multiplyer= multiplyer;
-	}
-
-	public void setUpgradeCount(int upgradeCount) 
-	{
-		this.upgradeCount = upgradeCount;
-		calculateUpkeep();
-	}
-
-	public String getName() 
-	{
-		return this.name;
+		return this.id;
 	}
 
 }

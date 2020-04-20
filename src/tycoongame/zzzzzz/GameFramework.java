@@ -6,7 +6,6 @@ import java.util.List;
 import tycoongame.game.asests.Player;
 import tycoongame.game.managers.Manager;
 import tycoongame.io.Input;
-import tycoongame.zzzzzz.event.EventListener;
 
 public abstract class GameFramework {
 	/**if the game is currently being played */
@@ -22,21 +21,15 @@ public abstract class GameFramework {
 	/**the manager for the displays in the game */
 	protected Manager guiManager;
 	/**the list of objects listening to game events */
-	protected List<EventListener> listeners;
-
 
 	protected void setupGame() 
 	{
-		listeners = new ArrayList<EventListener>();
-
-		player = new Player();
-		listeners.add( player );
-		
+		player = new Player();		
 		input = new Input();
 		menu = new Menu();
 		dispAdpt = new DisplayAdapter(); 
 		guiManager = new Manager();
-		
+
 		player.startGame();
 	}
 
@@ -45,4 +38,5 @@ public abstract class GameFramework {
 		if (message != null)
 			System.out.println(message);
 	}
+
 }

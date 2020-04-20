@@ -9,33 +9,41 @@ import tycoongame.buildings.BuildingType;
 import tycoongame.buildings.StoreManager;
 import tycoongame.buildings.level.LowLevel;
 import tycoongame.controller.ScreenController;
-import tycoongame.game.controllers.BuildingScreenController;
 import tycoongame.game.controllers.BusinessScreenController;
+import tycoongame.game.controllers.ManAndBuildingController;
 import tycoongame.game.controllers.TypeScreenController;
-import tycoongame.game.gui.Window;
-import tycoongame.game.gui.event.screenchange.ScreenChangeEvent;
-import tycoongame.game.gui.event.screenchange.ScreenChangeListener;
+import tycoongame.game.gui.GameWindow;
+import tycoongame.game.gui.event.manger.building.BuildingListner;
+import tycoongame.game.gui.event.manger.building.BuildingViewEvent;
+import tycoongame.game.gui.event.manger.building.PropertyExchangeEvent;
+import tycoongame.game.gui.event.manger.building.PropertyUpgradeEvent;
+import tycoongame.game.gui.event.manger.manager.BuyManagerEvent;
+import tycoongame.game.gui.event.manger.manager.ManagerListener;
+import tycoongame.game.gui.event.manger.manager.ManagerUpgradeEvent;
+import tycoongame.game.gui.event.manger.manager.ViewManagerEvent;
+import tycoongame.game.gui.event.manger.type.TypeListner;
+import tycoongame.game.gui.event.manger.type.TypeViewEvent;
 import tycoongame.game.gui.screeen.BuildingScreen;
 import tycoongame.game.gui.screeen.BusinessScreen;
 import tycoongame.game.gui.screeen.ManagerScreen;
 import tycoongame.game.gui.screeen.TypeScreen;
 import tycoongame.gui.ScreenFramework;
 
-public class Manager implements ScreenChangeListener {
+public class Manager implements BuildingListner, ManagerListener, TypeListner {
 
-    private Window window;
+    private GameWindow window;
     private ScreenFramework currentScreen;
     private ScreenController currentController;
-    
+
     private BusinessScreenController businessSC;
-    private BuildingScreenController buildingSC;
     private TypeScreenController typeSC;
+    private ManAndBuildingController manAndBuildSC;
 
     public Manager() {
-        this.window = new Window();
+        this.window = new GameWindow();
 
         // TODO temp code
-        HashMap <BuildingType , List<StoreManager>> ownedBuildings = new HashMap <BuildingType , List<StoreManager>>();
+        HashMap<BuildingType, List<StoreManager>> ownedBuildings = new HashMap<BuildingType, List<StoreManager>>();
 
         BuildingType bT = BuildingType.LEMONADE_STAND;
         List<StoreManager> sMans = new ArrayList<StoreManager>();
@@ -119,16 +127,15 @@ public class Manager implements ScreenChangeListener {
         // TODO temp code
 
         this.businessSC = new BusinessScreenController();
-        this.buildingSC = new BuildingScreenController();
+        this.manAndBuildSC = new ManAndBuildingController();
         this.typeSC = new TypeScreenController();
 
         typeSC.setOwnedBuildings(ownedBuildings);
 
-        this.businessSC.addManagerScreen(new ManagerScreen("TESTING"));
         this.businessSC.addBusinessScreen(new BusinessScreen(bT.toString()));
-        this.buildingSC.addScreen( new BuildingScreen("TESTING"));
-        this.typeSC.addScreen ( new TypeScreen("TYPES"));
-
+        this.manAndBuildSC.addBuildingScreen(new BuildingScreen("TESTING"));
+        this.manAndBuildSC.addManagerScreen(new ManagerScreen("TESTING"));
+        this.typeSC.addScreen(new TypeScreen("TYPES"));
 
         this.currentController = this.typeSC;
         this.currentController.addObserver(this);
@@ -141,12 +148,51 @@ public class Manager implements ScreenChangeListener {
     }
 
     @Override
-    public void onScreenChange( ScreenChangeEvent e ) 
-    {
-        //TODO
+    public void onTypeView(TypeViewEvent e) {
+        // TODO Auto-generated method stub
 
-        this.currentScreen = this.currentController.getCurrentScreen();
-        this.window.setCurrentScreen(this.currentScreen);
+    }
+
+    @Override
+    public void onManagerPurchace(BuyManagerEvent e) {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public void onManagerUpgrade(ManagerUpgradeEvent e) {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public void onManagerView(ViewManagerEvent e) {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public void onBuildingSold(PropertyExchangeEvent e) {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public void onBuildingBought(PropertyExchangeEvent e) {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public void onBuildingUpgrade(PropertyUpgradeEvent e) {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public void onBuildingView(BuildingViewEvent e) {
+        // TODO Auto-generated method stub
+
     }
 
 }

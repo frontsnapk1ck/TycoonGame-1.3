@@ -8,10 +8,10 @@ import tycoongame.buildings.StoreManager;
 import tycoongame.finances.Loan;
 import tycoongame.game.factory.NameFactory;
 import tycoongame.records.Log;
-import tycoongame.zzzzzz.event.EventListener;
-import tycoongame.zzzzzz.event.GameEvent;
+import tycoongame.zzzzzz.GameFramework;
+import tycoongame.zzzzzz.event.transaction.TransactionListner;
 
-public class Player implements EventListener {
+public class Player {
 
     private AccountManager account = new AccountManager();
 	private BuildingManager bManager = new BuildingManager();
@@ -22,19 +22,6 @@ public class Player implements EventListener {
     {
 		nameFactory.load("res\\assets\\objects\\stockNames.txt");
 		streetFactory.load("res\\assets\\objects\\stockStreetNames.txt");
-        // TODO Auto-generated method stub
-
-    }
-
-    public void onDayChange(GameEvent event) 
-    {
-		// if ( event.getAction() == GameEvent.NEW_DAY )
-			//TODO
-
-    }
-
-    public void onPurchace(GameEvent event) 
-    {
         // TODO Auto-generated method stub
 
     }
@@ -260,6 +247,16 @@ public class Player implements EventListener {
 	public void takeLoan(int in) 
 	{
 		account.takeLoan ( in );
+	}
+
+	public TransactionListner getTListner() 
+	{
+		return this.account;
+	}
+
+	public void addTListeners(List<TransactionListner> tListners) 
+	{
+		this.bManager.addTListeners( tListners );
 	}
 	
 }

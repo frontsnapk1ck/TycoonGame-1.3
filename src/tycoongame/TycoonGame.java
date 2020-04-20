@@ -4,11 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import tycoongame.zzzzzz.GameFramework;
-import tycoongame.zzzzzz.event.EventListener;
-import tycoongame.zzzzzz.event.GameEvent;
+import tycoongame.zzzzzz.event.transaction.TransactionListner;
 
 /**
- * @author	S38392
+ * @author S38392
  *
  */
 
@@ -17,14 +16,26 @@ public class TycoonGame extends GameFramework {
     private static TycoonGame game;
     private String message;
     private int day;
+    private List<TransactionListner> tListners;
 
-    private List<EventListener> listeners;
-
-    public static void main(String[] args) 
-    {
+    public static void main(String[] args) {
         game = getInstance(game);
         game.setupGame();
+        game.setListners();
         game.start();
+    }
+
+    private void setListners ()
+    {
+        setTListners();
+    }
+
+    private void setTListners() 
+    {
+        this.tListners = new ArrayList<TransactionListner>();
+        this.tListners.add( this.player.getTListner() );
+
+        this.player.addTListeners(this.tListners);
     }
 
     private void start() {
@@ -34,8 +45,10 @@ public class TycoonGame extends GameFramework {
 
     }
 
-    private void loop() {
-        while (playing) {
+    private void loop() 
+    {
+        while (playing) 
+        {
             menu.line(10);
 
             menu.out("Day: " + day);
@@ -338,9 +351,7 @@ public class TycoonGame extends GameFramework {
 
     private void nextDay() 
     {
-        GameEvent event = new GameEvent(this , GameEvent.NEW_DAY );
-        for (EventListener listener : this.listeners)
-            listener.onDayChange(event);
+        this.day++;
     }
 
     private void addBuilding(int buildingNum) {
@@ -350,55 +361,41 @@ public class TycoonGame extends GameFramework {
     public static TycoonGame getInstance(TycoonGame g) {
         if (g == null) {
             g = new TycoonGame();
-		}
-		return g;
-	}
+        }
+        return g;
+    }
 
-	private void destroy ()
-	{
-		game = null;
-	}
+    private void destroy() {
+        game = null;
+    }
 
-	private void newDayEvent ()
-	{
-		GameEvent event = new GameEvent (this , GameEvent.NEW_DAY );
-		for (EventListener eventListener : listeners)
-			eventListener.onDayChange(event);
-	}
+    // =============================================
+    // Utility
+    // =============================================
 
-	private void purchaceEvent ()
-	{
-		//TODO this
-	}
-	
-	//=============================================
-	//				Utility
-	//=============================================
+    private ArrayList<Integer> numbers1ThruX(int max) {
+        ArrayList<Integer> intList = new ArrayList<Integer>();
+        for (int i = 1; i <= max; i++)
+            intList.add(i);
+        return intList;
+    }
 
-	private ArrayList<Integer> numbers1ThruX(int max) 
-	{
-		ArrayList<Integer> intList = new ArrayList<Integer>();
-		for (int i = 1; i <= max; i++)
-			intList.add(i);
-		return intList;
-	}
+    private ArrayList<Integer> numbersXThruX(int min, int max) {
+        ArrayList<Integer> intList = new ArrayList<Integer>();
+        for (int i = min; i <= max; i++)
+            intList.add(i);
+        return intList;
+    }
 
-	private ArrayList<Integer> numbersXThruX( int min , int max ) 
-	{
-		ArrayList<Integer> intList = new ArrayList<Integer>();
-		for (int i = min; i <= max; i++)
-			intList.add(i);
-		return intList;
-	}
+    private String fixBal(double bal) {
+        if ((int) bal == bal || (int) bal * 10 == bal * 10) {
+            return "" + bal + "0";
+        }
+        return "" + ((int) (bal * 100)) / 100;
+    }
 
-	private String fixBal (double bal)
-	{
-		if ((int) bal == bal 		||
-			(int) bal * 10 == bal * 10)
-		{
-			return "" + bal + "0";
-		}
-		return "" + ((int) (bal * 100))/100;
-	}
+    // =============================================
+    // events
+    // =============================================
 
 }

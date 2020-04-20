@@ -2,8 +2,6 @@ package tycoongame.game.gui.screeen;
 
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,11 +9,10 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 
 import tycoongame.buildings.Building;
-import tycoongame.game.controllers.BuildingScreenController;
 import tycoongame.game.gui.component.InfoPanel;
 import tycoongame.game.gui.component.ManagerPanel;
 import tycoongame.game.gui.component.TitleBanner;
-import tycoongame.game.gui.event.building.BuildingListener;
+import tycoongame.game.gui.event.manger.building.BuildingListner;
 import tycoongame.gui.ScreenFramework;
 
 public class BuildingScreen extends ScreenFramework {
@@ -44,7 +41,7 @@ public class BuildingScreen extends ScreenFramework {
     private int widthM;
     private int heightM;
     private Building building;
-    private List<BuildingListener> listerns;
+    private List<BuildingListner> listerns;
 
     public BuildingScreen(String title) {
         // Remove the layout managerScreen
@@ -70,7 +67,7 @@ public class BuildingScreen extends ScreenFramework {
         this.getPanel().add(this.infoPanel.getPanel());
 
         this.buttons = new ArrayList<JButton>();
-        this.listerns = new ArrayList<BuildingListener>();
+        this.listerns = new ArrayList<BuildingListner>();
 
         configureText();
     }
@@ -138,12 +135,12 @@ public class BuildingScreen extends ScreenFramework {
         this.infoPanel.getPanel().add(lable);
     }
 
-    public void removeListner(BuildingListener obserber) 
+    public void removeListner(BuildingListner obserber) 
     {
         this.listerns.remove(obserber);
 	}
 
-    public void setLisener(BuildingListener obserber) 
+    public void addLisener(BuildingListner obserber) 
     {
         this.listerns.add(obserber);
 	}
