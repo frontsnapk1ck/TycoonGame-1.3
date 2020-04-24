@@ -1,8 +1,5 @@
 package tycoongame.zzzzzz;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import tycoongame.game.asests.Player;
 import tycoongame.game.managers.Manager;
 import tycoongame.io.Input;

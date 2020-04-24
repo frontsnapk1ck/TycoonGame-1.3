@@ -12,6 +12,7 @@ import tycoongame.buildings.Building;
 import tycoongame.game.gui.component.InfoPanel;
 import tycoongame.game.gui.component.ManagerPanel;
 import tycoongame.game.gui.component.TitleBanner;
+import tycoongame.game.gui.event.controller.building.BuildingInputListener;
 import tycoongame.game.gui.event.manger.building.BuildingListner;
 import tycoongame.gui.ScreenFramework;
 
@@ -40,8 +41,9 @@ public class BuildingScreen extends ScreenFramework {
     private List<JButton> buttons;
     private int widthM;
     private int heightM;
+
     private Building building;
-    private List<BuildingListner> listerns;
+    private List<BuildingInputListener> listerns;
 
     public BuildingScreen(String title) {
         // Remove the layout managerScreen
@@ -67,7 +69,7 @@ public class BuildingScreen extends ScreenFramework {
         this.getPanel().add(this.infoPanel.getPanel());
 
         this.buttons = new ArrayList<JButton>();
-        this.listerns = new ArrayList<BuildingListner>();
+        this.listerns = new ArrayList<BuildingInputListener>();
 
         configureText();
     }
@@ -135,12 +137,12 @@ public class BuildingScreen extends ScreenFramework {
         this.infoPanel.getPanel().add(lable);
     }
 
-    public void removeListner(BuildingListner obserber) 
+    public void removeListner(BuildingInputListener obserber) 
     {
         this.listerns.remove(obserber);
 	}
 
-    public void addLisener(BuildingListner obserber) 
+    public void addLisener(BuildingInputListener obserber) 
     {
         this.listerns.add(obserber);
 	}

@@ -5,15 +5,18 @@ import java.util.List;
 import tycoongame.buildings.Building;
 import tycoongame.buildings.StoreManager;
 import tycoongame.controller.ScreenController;
+import tycoongame.game.gui.event.controller.building.BuildingInputEvent;
+import tycoongame.game.gui.event.controller.building.BuildingInputListener;
+import tycoongame.game.gui.event.controller.manager.ManagerInputEvent;
+import tycoongame.game.gui.event.controller.manager.ManagerInputListner;
 import tycoongame.game.gui.screeen.BuildingScreen;
 import tycoongame.game.gui.screeen.ManagerScreen;
 import tycoongame.gui.ScreenFramework;
 
-public class ManAndBuildingController extends ScreenController {
+public class ManAndBuildingController extends ScreenController implements ManagerInputListner, BuildingInputListener {
 
     private ManagerScreen managerScreen;
     private BuildingScreen buildingScreen;
-    private List<InputListener> listeners;
 
     private Building building;
     private StoreManager sMan;
@@ -49,32 +52,42 @@ public class ManAndBuildingController extends ScreenController {
     // =========================================
     // Actions
     // =========================================
-
+    
     @Override
-    public void onAcionSelect(InputEvent event) {
+    public void onBuildingUpgrade(BuildingInputEvent e) {
         // TODO Auto-generated method stub
 
     }
 
     @Override
-    public void onBuildingSelect(ManagerEvent event) {
+    public void onBuildingSell(BuildingInputEvent e) {
         // TODO Auto-generated method stub
 
     }
 
     @Override
-    public void onBackButtonSelect(ScreenChangeEvent event) {
+    public void onBuildingView(BuildingInputEvent e) {
         // TODO Auto-generated method stub
 
     }
 
     @Override
-    public void onBuildingSell(SellEvent e) 
-    {
-        Building b = e.getB();
-        this.sMan.sell( b );
+    public void onManagerUpgrade(ManagerInputEvent e) {
+        // TODO Auto-generated method stub
+
     }
 
+    @Override
+    public void onManagerView(ManagerInputEvent e) {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public void onManagerPurchace(ManagerInputEvent e) {
+        // TODO Auto-generated method stub
+
+    }
     // =========================================
     // Listners
     // =========================================
@@ -105,7 +118,7 @@ public class ManAndBuildingController extends ScreenController {
     // setters
     // =========================================
 
-    private void setManagerScreen(StoreManager sMan) {
+    public void setManagerScreen(StoreManager sMan) {
         managerScreen.setBuildings(sMan);
         this.currentScreen = managerScreen;
     }

@@ -8,7 +8,6 @@ import tycoongame.buildings.StoreManager;
 import tycoongame.finances.Loan;
 import tycoongame.game.factory.NameFactory;
 import tycoongame.records.Log;
-import tycoongame.zzzzzz.GameFramework;
 import tycoongame.zzzzzz.event.transaction.TransactionListner;
 
 public class Player {

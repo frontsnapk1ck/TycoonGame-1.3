@@ -10,12 +10,12 @@ import java.util.List;
 import javax.swing.JButton;
 
 import tycoongame.buildings.StoreManager;
-import tycoongame.game.controllers.BusinessScreenController;
 import tycoongame.game.gui.component.InfoPanel;
 import tycoongame.game.gui.component.ManagerPanel;
 import tycoongame.game.gui.component.TitleBanner;
-import tycoongame.game.gui.event.business.BuisnessEvent;
-import tycoongame.game.gui.event.business.BusinessLister;
+import tycoongame.game.gui.event.controller.manager.ManagerInputEvent;
+import tycoongame.game.gui.event.manger.manager.ManagerListener;
+import tycoongame.game.gui.event.manger.manager.ViewManagerEvent;
 import tycoongame.gui.ScreenFramework;
 
 /**
@@ -49,7 +49,7 @@ public class BusinessScreen extends ScreenFramework {
     private List<JButton> buttons;
     private int widthM;
     private int heightM;
-    private List<BusinessLister> listeners;
+    private List<ManagerListener> listeners;
     private List<StoreManager> managers;
 
     public BusinessScreen(String title) {
@@ -76,7 +76,7 @@ public class BusinessScreen extends ScreenFramework {
         this.getPanel().add(this.infoPanel.getPanel());
 
         this.buttons = new ArrayList<JButton>();
-        this.listeners = new ArrayList<BusinessLister>();
+        this.listeners = new ArrayList<ManagerListener>();
     }
 
     // =============================================================
@@ -174,21 +174,22 @@ public class BusinessScreen extends ScreenFramework {
         this.buttons.add(managerButton);
     }
 
-    private void whenManagerButtonClicked ( String name , StoreManager storeManager) {
-        BuisnessEvent event = new BuisnessEvent( storeManager );
+    private void whenManagerButtonClicked ( String name , StoreManager storeManager) 
+    {
+        ManagerInputEvent event = new ViewManagerEvent(  );
         if ( this.listeners != null )
         {
-            for (BusinessLister listerner : this.listeners )
-                listerner.onManagerSelect( event );
+            for (ManagerListener listerner : this.listeners )
+                listerner.onManagerView( event );
         }
     }
 
-    public void setListener ( BusinessLister lister )
+    public void setListener ( ManagerListener lister )
     {
         this.listeners.add( lister );
     }
 
-    public void removeListener(BusinessScreenController listener ) 
+    public void removeListener( ManagerListener listener ) 
     {
         this.listeners.remove( listener );
 	}

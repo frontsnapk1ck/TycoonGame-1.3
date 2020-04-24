@@ -1,13 +1,12 @@
 package tycoongame.game.gui.event.manger.type;
 
-import tycoongame.buildings.BuildingType;
 import tycoongame.controller.event.InputEvent;
 
 public class TypeViewEvent extends InputEvent {
 
-    private BuildingType bT;
+    private String bT;
 
-    public TypeViewEvent(BuildingType bT)
+    public TypeViewEvent(String bT)
     {
         this.bT = bT;
     }
@@ -15,7 +14,7 @@ public class TypeViewEvent extends InputEvent {
     /**
      * @return the bT
      */
-    public BuildingType getbT() {
+    public String getbT() {
         return bT;
     }
 }

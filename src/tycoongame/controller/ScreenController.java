@@ -16,8 +16,6 @@ public abstract class ScreenController {
         this.observers = new ArrayList<InputListener>();
     }
 
-    public abstract void fireChangeEvent ( );
-
     public void addObserver (InputListener o)
     {
         if (this.observers == null)

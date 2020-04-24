@@ -11,7 +11,6 @@ import tycoongame.buildings.StoreManager;
 import tycoongame.game.factory.BuildingFactory;
 import tycoongame.game.save.SaveGameManager;
 import tycoongame.zzzzzz.event.transaction.TransactionListner;
-import tycoongame.zzzzzz.event.transaction.TrasnactoinEvent;
 
 public class BuildingManager extends GrandManager {
 

@@ -12,7 +12,8 @@ import java.util.Set;
 import javax.swing.JButton;
 
 import tycoongame.game.gui.component.TitleBanner;
-import tycoongame.game.gui.event.type.TypeListner;
+import tycoongame.game.gui.event.manger.type.TypeListner;
+import tycoongame.game.gui.event.manger.type.TypeViewEvent;
 import tycoongame.buildings.BuildingType;
 import tycoongame.buildings.StoreManager;
 import tycoongame.game.gui.component.InfoPanel;
@@ -159,18 +160,18 @@ public class TypeScreen extends ScreenFramework {
         button.addActionListener( new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                whenTypeSelected( buildingType , sMans );
+                whenTypeSelected( buildingType );
             }
         } );
         sizeButton (button , pos);
         this.buttons.add(button);
     }
 
-    protected void whenTypeSelected(BuildingType buildingType, List<StoreManager> sMans)
+    protected void whenTypeSelected(BuildingType buildingType )
     {
-        TypeEvent event = new TypeEvent( buildingType , sMans );
-        for (TypeListener o : this.listeners)
-            o.onTypeSelected(event);
+        TypeViewEvent event = new TypeViewEvent( buildingType.toString() );
+        for (TypeListner o : this.listeners)
+            o.onTypeView(event);
     }
 
     private void sizeButton(JButton b, int pos) 

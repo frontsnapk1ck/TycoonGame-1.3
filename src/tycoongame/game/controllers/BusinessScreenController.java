@@ -5,7 +5,6 @@ import java.util.List;
 import tycoongame.buildings.BuildingType;
 import tycoongame.buildings.StoreManager;
 import tycoongame.controller.ScreenController;
-import tycoongame.game.gui.event.manager.ManagerListener;
 import tycoongame.game.gui.screeen.BusinessScreen;
 import tycoongame.gui.ScreenFramework;
 
@@ -44,17 +43,10 @@ public class BusinessScreenController extends ScreenController {
     }
 
     /**
-     * @param sMans the sMans to set
+     * @param sMans the sMans to sety
      */
     public void setsMans(List<StoreManager> sMans) {
         this.sMans = sMans;
-    }
-
-    @Override
-    public void fireChangeEvent( ) 
-    {
-        // TODO Auto-generated method stub
-
     }
 
 }

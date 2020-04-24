@@ -10,9 +10,8 @@ import java.util.List;
 import javax.swing.JButton;
 
 import tycoongame.game.gui.component.TitleBanner;
-import tycoongame.game.gui.event.manager.ManagerEvent;
-import tycoongame.game.gui.event.manager.ManagerListener;
-import tycoongame.game.gui.event.screenchange.ScreenChangeEvent;
+import tycoongame.game.gui.event.manger.building.BuildingViewEvent;
+import tycoongame.game.gui.event.manger.manager.ManagerListener;
 import tycoongame.buildings.Building;
 import tycoongame.buildings.StoreManager;
 import tycoongame.game.controllers.BusinessScreenController;
@@ -54,7 +53,6 @@ public class ManagerScreen extends ScreenFramework {
     private int heightM;
     private int heightI;
     private List<ManagerListener> listeners;
-    private StoreManager sMan;
 
     public ManagerScreen(String title) {
         // Remove the layout managerScreen
@@ -194,6 +192,11 @@ public class ManagerScreen extends ScreenFramework {
         });
     }
 
+    protected void whenBackButtonClicked() 
+    {
+        //TODO
+    }
+
     public void loadBuilding(String name, Building building)
     {
         JButton buildingButton = new JButton( name );
@@ -209,24 +212,13 @@ public class ManagerScreen extends ScreenFramework {
         this.buttons.add(buildingButton);
     }
 
-        
-    protected void whenBackButtonClicked() 
-    {
-        ScreenChangeEvent event = new ScreenChangeEvent(this, this.sMan.getBT().toString() );
-        if ( this.listeners != null )
-        {
-            for (ManagerListener listener : listeners)
-                listener.onBackButtonSelect(event);
-        }
-    }
-
     private void whenBuildingButtonClicked ( String name, Building building)
     {
-        ManagerEvent event = new ManagerEvent( name , building );
+        BuildingViewEvent event = new BuildingViewEvent( name , building.getSManID() );
         if ( this.listeners != null )
         {
             for (ManagerListener listener : listeners)
-                listener.onBuildingSelect(event);
+                listener.onBuildingView(event);
         }
     }
 
@@ -240,10 +232,9 @@ public class ManagerScreen extends ScreenFramework {
         this.listeners.remove( listener );
 	}
 
-    public void setBuildings(StoreManager sMan) 
+    public void setBuildings(List<Building> bs) 
     {
-        this.sMan = sMan;
-        for (Building building : sMan.get()) 
+        for (Building building : bs) 
             loadBuilding(building.getName() , building );
     }
     
